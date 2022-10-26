@@ -9,6 +9,7 @@ import android.content.pm.PackageManager.FEATURE_BLUETOOTH_LE
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -19,12 +20,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mBTStateUpdateReceiver: BleState
     private lateinit var mScanDevices: ScanDevices
-
+    private lateinit var mConnectBle: ConnectBle
+    private var address:String = "7C:9E:BD:F6:3C:26"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        supportActionBar?.hide()
         setContentView(binding.root)
         initState()
         initScanDevices(binding)
@@ -49,6 +52,11 @@ class MainActivity : AppCompatActivity() {
     private fun checkButtuns() {
         binding.scan.setOnClickListener { view ->
             mScanDevices.scanLeDevice()
+        }
+        binding.devicesListView.setOnItemClickListener {adapterView,view,i,l->
+            mConnectBle = ConnectBle(this,address,binding)
+            mConnectBle.connect()
+
         }
     }
 

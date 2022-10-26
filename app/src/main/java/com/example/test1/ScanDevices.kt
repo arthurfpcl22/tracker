@@ -70,6 +70,8 @@ class ScanDevices(activityContext: AppCompatActivity, binding: ActivityMainBindi
 
 
     }
+
+
     private val PermissionsLocation = arrayOf(
         "android.permission.BLUETOOTH_SCAN",
         "android.permission.BLUETOOTH_CONNECT",
